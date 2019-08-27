@@ -45,7 +45,7 @@ public class ProductController extends HttpServlet {
         List<ProductCategory> productCategories = productCategoryDataStore.getAll(); // ez kell a <form><select>hez - prod.cat
         List<Supplier> suppliers = supplierDao.getAll(); // ez kell a <selecthez> - suppliers
         context.setVariable("productCategories", productCategories);
-        context.setVariable("suppliers", supplierDao);
+        context.setVariable("suppliers", suppliers);
         // // Alternative setting of the template context
         // Map<String, Object> params = new HashMap<>();
         // params.put("category", productCategoryDataStore.find(1));
