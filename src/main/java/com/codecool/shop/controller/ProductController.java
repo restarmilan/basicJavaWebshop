@@ -17,9 +17,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -47,23 +45,13 @@ public class ProductController extends HttpServlet {
         List<ProductCategory> productCategories = productCategoryDataStore.getAll(); // ez kell a <form><select>hez - prod.cat
         List<Supplier> suppliers = supplierDao.getAll(); // ez kell a <selecthez> - suppliers
         context.setVariable("productCategories", productCategories);
-        context.setVariable("suppliers", suppliers);
+        context.setVariable("suppliers", supplierDao);
         // // Alternative setting of the template context
         // Map<String, Object> params = new HashMap<>();
         // params.put("category", productCategoryDataStore.find(1));
         // params.put("products", productDataStore.getBy(productCategoryDataStore.find(1)));
         // context.setVariables(params);
-
         engine.process("product/index.html", context, resp.getWriter());
-
-        HttpSession session = req.getSession();
-        synchronized (session){
-            session.setAttribute("cart", cart);// ez csak próba
-        }
-
-        resp.setContentType("text/html");
-        PrintWriter out = resp.getWriter();
-        out.println()
     }
 
 }
