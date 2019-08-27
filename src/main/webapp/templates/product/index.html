@@ -36,7 +36,7 @@
 
 <form action="/" method="get">
     <label for="prod-supp-select">Choose product by category or supplier</label>
-    <select id="prod-supp-select">
+    <select id="prod-supp-select" name="prod-or-cat">
         <optgroup label="Product category">
             <option th:value="${category.getName()}" th:text="${category.getName()}" th:each="category : ${productCategories}"></option>
         </optgroup>
@@ -46,6 +46,8 @@
     </select>
     <input type="submit" value="Submit">
 </form>
+
+<div id ="prod-cat-choose" th:if="${prodCat == null}">
 
 <div class="container">
 
@@ -126,6 +128,8 @@
             </div>
         </div>
     </div>
+
+</div>
 
 </div>
 

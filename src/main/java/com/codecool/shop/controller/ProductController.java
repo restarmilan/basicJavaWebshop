@@ -34,24 +34,34 @@ public class ProductController extends HttpServlet {
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
-        //context.setVariable("category", productCategoryDataStore.find(1));
-        //context.setVariable("products", productDataStore.getBy(productCategoryDataStore.find(1)));
         context.setVariable("category1", productCategoryDataStore.find(1));
         context.setVariable("products1", productDataStore.getBy(productCategoryDataStore.find(1)));
         context.setVariable("category2", productCategoryDataStore.find(2));
         context.setVariable("products2", productDataStore.getBy(productCategoryDataStore.find(2)));
         context.setVariable("category3", productCategoryDataStore.find(3));
         context.setVariable("products3", productDataStore.getBy(productCategoryDataStore.find(3)));
-        List<ProductCategory> productCategories = productCategoryDataStore.getAll(); // ez kell a <form><select>hez - prod.cat
-        List<Supplier> suppliers = supplierDao.getAll(); // ez kell a <selecthez> - suppliers
+
+        List<ProductCategory> productCategories = productCategoryDataStore.getAll();
+        List<Supplier> suppliers = supplierDao.getAll();
+
         context.setVariable("productCategories", productCategories);
         context.setVariable("suppliers", suppliers);
-        // // Alternative setting of the template context
-        // Map<String, Object> params = new HashMap<>();
-        // params.put("category", productCategoryDataStore.find(1));
-        // params.put("products", productDataStore.getBy(productCategoryDataStore.find(1)));
-        // context.setVariables(params);
+        context.setVariable("Amazon", productDataStore.getBy(supplierDao.find(1)));
+        context.setVariable("Lenovo", productDataStore.getBy(supplierDao.find(2)));
+        context.setVariable("Samsung", productDataStore.getBy(supplierDao.find(3)));
+        context.setVariable("Toshiba", productDataStore.getBy(supplierDao.find(4)));
+        context.setVariable("Logitech", productDataStore.getBy(supplierDao.find(5)));
+        context.setVariable("Microsoft", productDataStore.getBy(supplierDao.find(6)));
+
+        String prodCat = req.getParameter("prod-or-cat");
+        context.setVariable("prodCat", prodCat);
+
         engine.process("product/index.html", context, resp.getWriter());
     }
 
 }
+// // Alternative setting of the template context
+// Map<String, Object> params = new HashMap<>();
+// params.put("category", productCategoryDataStore.find(1));
+// params.put("products", productDataStore.getBy(productCategoryDataStore.find(1)));
+// context.setVariables(params);
