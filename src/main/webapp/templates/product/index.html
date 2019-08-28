@@ -31,7 +31,7 @@
 <body>
 
 <div class="jumbotron text-center">
-    <h1>Codecool Shop</h1>
+    <h1><a href="/" style="text-decoration: none">Codecool Shop</a></h1>
 </div>
 
 <form action="/" method="get">
@@ -47,90 +47,92 @@
     <input type="submit" value="Submit">
 </form>
 
-<div id ="prod-cat-choose" th:if="${prodCat == null}">
+<div id ="prod-cat-choose" th:switch="${prodCat}">
+    <div th:case="null">
 
-<div class="container">
+    <div class="container" th:each="cat : ${categories}">
 
-    <div class="card">
-        <strong th:text="${category1.name}">Category Title</strong>
-    </div>
+        <br>
+        <p th:text="${cat.getName()}" style="font-weight: bold">Category Title</p>
 
-    <div id="products1" class="row">
-        <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${products1}">
-            <div class="card">
-                <img class="" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt="" />
-                <div class="card-header">
-                    <h4 class="card-title" th:text="${prod.name}">Product name</h4>
-                    <p class="card-text" th:text="${prod.description}">Product description... </p>
-                </div>
-                <div class="card-body">
-                    <div class="card-text">
-                        <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
+        <div id="products" class="row">
+            <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${products}" th:if="${cat.getName().equals(prod.getProductCategory().getName())}">
+                <div class="card">
+                    <img class="" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt="" />
+                    <div class="card-header">
+                        <h4 class="card-title" th:text="${prod.name}">Product name</h4>
+                        <p class="card-text" th:text="${prod.description}">Product description... </p>
                     </div>
-                    <div class="card-text">
-                        <a class="btn btn-success" href="#">Add to cart</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-</div>
-<div class="container">
-
-    <div class="card">
-        <strong th:text="${category2.name}">Category Title</strong>
-    </div>
-
-    <div id="products2" class="row">
-        <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${products2}">
-            <div class="card">
-                <img class="" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt="" />
-                <div class="card-header">
-                    <h4 class="card-title" th:text="${prod.name}">Product name</h4>
-                    <p class="card-text" th:text="${prod.description}">Product description... </p>
-                </div>
-                <div class="card-body">
-                    <div class="card-text">
-                        <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
-                    </div>
-                    <div class="card-text">
-                        <a class="btn btn-success" href="#">Add to cart</a>
+                    <div class="card-body">
+                        <div class="card-text">
+                            <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
+                        </div>
+                        <div class="card-text">
+                            <a class="btn btn-success" href="#">Add to cart</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
-
-</div>
-<div class="container">
-
-    <div class="card">
-        <strong th:text="${category3.name}">Category Title</strong>
     </div>
+    <div th:each="category : ${productCategories}" th:case="${category.getName()}">
+        <div class="container">
 
-    <div id="products3" class="row">
-        <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${products3}">
-            <div class="card">
-                <img class="" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt="" />
-                <div class="card-header">
-                    <h4 class="card-title" th:text="${prod.name}">Product name</h4>
-                    <p class="card-text" th:text="${prod.description}">Product description... </p>
-                </div>
-                <div class="card-body">
-                    <div class="card-text">
-                        <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
-                    </div>
-                    <div class="card-text">
-                        <a class="btn btn-success" href="#">Add to cart</a>
+            <br>
+            <p th:text="${category.getName()}" style="font-weight: bold">Category Title</p>
+
+            <div id="products1" class="row">
+                <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${products}" th:if="${category.getName().equals(prod.getProductCategory().getName())}">
+                    <div class="card">
+                        <img class="" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt="" />
+                        <div class="card-header">
+                            <h4 class="card-title" th:text="${prod.name}">Product name</h4>
+                            <p class="card-text" th:text="${prod.description}">Product description... </p>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-text">
+                                <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
+                            </div>
+                            <div class="card-text">
+                                <a class="btn btn-success" href="#">Add to cart</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
+    <div th:each="supplier : ${suppliers}" th:case="${supplier.getName()}">
+        <div class="container">
 
-</div>
+            <br>
+            <p th:text="${supplier.getName()}" style="font-weight: bold">Category Title</p>
 
+            <div id="products2" class="row">
+                <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${products}" th:if="${supplier.getName().equals(prod.getSupplier().getName())}">
+                    <div class="card">
+                        <img class="" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt="" />
+                        <div class="card-header">
+                            <h4 class="card-title" th:text="${prod.name}">Product name</h4>
+                            <p class="card-text" th:text="${prod.description}">Product description... </p>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-text">
+                                <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
+                            </div>
+                            <div class="card-text">
+                                <a class="btn btn-success" href="#">Add to cart</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>
 
 <div th:replace="footer.html :: copy"></div>
