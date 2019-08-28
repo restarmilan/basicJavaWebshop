@@ -1,10 +1,13 @@
 package com.codecool.shop.controller;
 
 
+import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.dao.implementation.CartDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import org.json.JSONObject;
 import org.json.JSONTokener;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.WebContext;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,11 +26,11 @@ public class CartController extends HttpServlet {
     ProductDaoMem productDaoMem = ProductDaoMem.getInstance();
 
     @Override
-    protected void doPost (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         BufferedReader reader = req.getReader();
         JSONTokener tokener = new JSONTokener(reader);
         JSONObject json = new JSONObject(tokener);
-        System.out.println("cart"+json.get("id"));
+        System.out.println("cart" + json.get("id"));
         //String jsonResponse = new Gson().toJson(json);
         //resp.setContentType("application/json");
         //resp.setCharacterEncoding("UTF-8");
@@ -40,7 +43,12 @@ public class CartController extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
-
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
+        WebContext context = new WebContext(req, resp, req.getServletContext());
+        float sum = cart.getSumOfPrices();
+        context.setVariable("sum", sum);
+        context.setVariable("cart", cart.getCart());
+        engine.process("product/cart.html", context, resp.getWriter());
     }
 }
