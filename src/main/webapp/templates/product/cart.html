@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="author" content="Codecool" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <title>Shopping cart</title>
+
+    <!-- Bootstrap components -->
+    <!-- Latest compiled and minified Jquery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+    <!--Latest compiled and minified Popper -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+            integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+    <script defer src="/static/js/script.js"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <!-- End of Bootstrap components -->
+
+    <link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
+</head>
+<body>
+<h1>Shopping cart</h1>
+
+<form method="POST" action="/">
+    <table>
+        <tr>
+            <th>Product name</th>
+            <th>Quantity</th>
+            <th>Unit price</th>
+        </tr>
+        <tr>
+            <td>Prodname</td>
+            <td>
+                <input type="number" name="quantity" min="0" max="20" value="1"> <!-- valuet megkapja majd a szervertől - ha quantity 0, akkor eltávolítja a cartból -->
+                <input type="submit">
+            </td>
+            <td>Egyesárak</td>
+        </tr>
+        <tr>
+            <td colspan="2">Subtotal: </td>
+            <td>Mindennekösszege</td>
+        </tr>
+    </table>
+</form>
+
+<br>
+<h3>Checkout</h3>
+
+<form>
+    <label for="name">Name</label><br>
+    <input type="text" id="name" name="name" value="name"><br><br>
+    <label for="email">E-mail</label><br>
+    <input type="email" id="email" name="email" value="youremail@email.com"><br><br>
+    <label for="phone-number">Phone number</label><br>
+    <input type="text" id="phone-number" name="phone" value="phone number"><br><br>
+    <label for="billing-address">Billing address</label><br>
+    <input type="text" id="billing-address" name="billing-address" value="country, city, zipcode, address"><br><br>
+    <label for="shipping-address">Shipping address</label><br>
+    <input type="text" id="shipping-address" name="shipping-address" value="country, city, zipcode, address"><br><br>
+    <input type="submit" value="Submit">
+    <!-- this submit should redirect to the payment page. Idea:
+    <a href="/payment"><input type="submit" value="Submit"></a> - instead of just the submit button -->
+</form>
+
+</body>
+</html>

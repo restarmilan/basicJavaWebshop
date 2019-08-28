@@ -20,6 +20,10 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
     integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 
+
+    <script defer src="/static/js/script.js"></script>
+
+
     <!-- Latest compiled and minified CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
@@ -29,39 +33,115 @@
 </head>
 
 <body>
-
 <div class="jumbotron text-center">
-    <h1>Codecool Shop</h1>
+    <h1><a href="/" style="text-decoration: none">Codecool Shop</a></h1>
+    <div id="header-right">
+        <button class="btn btn-success" id="cart-button"><a href="/cart"></a></button>
+    </div>
 </div>
 
-<div class="container">
-    <div class="card">
-        <strong th:text="${category.name}">Category Title</strong>
-    </div>
+<form action="/" method="get">
+    <label for="prod-supp-select" style="font-size: 1.5em; font-weight: bolder; margin-left: 1em">Choose product by category or supplier</label><br>
+    <select id="prod-supp-select" name="prod-or-cat" style="width: 6em; height: 2em; margin-left: 1em; padding: .3em">
+        <optgroup label="Product category">
+            <option th:value="${category.getName()}" th:text="${category.getName()}" th:each="category : ${productCategories}"></option>
+        </optgroup>
+        <optgroup label="Supplier">
+            <option th:each="supp : ${suppliers}" th:value="${supp.getName()}" th:text="${supp.getName()}"></option>
+        </optgroup>
+    </select>
+    <input type="submit" value="Submit" style="margin: 1em; width: 6em; height: 2em">
+</form>
 
-    <div id="products" class="row">
-        <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${products}">
-            <div class="card">
-                <img class="" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt="" />
-                <div class="card-header">
-                    <h4 class="card-title" th:text="${prod.name}">Product name</h4>
-                    <p class="card-text" th:text="${prod.description}">Product description... </p>
-                </div>
-                <div class="card-body">
-                    <div class="card-text">
-                        <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
-                    </div>
-                    <div class="card-text">
-                        <a class="btn btn-success" href="#">Add to cart</a>
+<div id ="prod-cat-choose" th:switch="${prodCat}">
+    <div th:case="null">
+
+        <div class="container" th:each="cat : ${categories}">
+
+            <br>
+            <p th:text="${cat.getName()}" style="font-weight: bold; font-size: 2em">Category Title</p>
+            <br>
+
+            <div id="products" class="row">
+                <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${products}" th:if="${cat.getName().equals(prod.getProductCategory().getName())}">
+                    <div class="card">
+                        <img class="" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt="" />
+                        <div class="card-header">
+                            <h4 class="card-title" th:text="${prod.name}">Product name</h4>
+                            <p class="card-text" th:text="${prod.description}">Product description... </p>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-text">
+                                <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
+                            </div>
+                            <div class="card-text">
+                                 <button class="btn btn-success" name="button" th:id="${prod.id}">Add to cart</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <div th:each="category : ${productCategories}" th:case="${category.getName()}">
+        <div class="container">
+
+            <br>
+            <p th:text="${category.getName()}" style="font-weight: bold">Category Title</p>
+
+            <div id="products1" class="row">
+                <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${products}" th:if="${category.getName().equals(prod.getProductCategory().getName())}">
+                    <div class="card">
+                        <img class="" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt="" />
+                        <div class="card-header">
+                            <h4 class="card-title" th:text="${prod.name}">Product name</h4>
+                            <p class="card-text" th:text="${prod.description}">Product description... </p>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-text">
+                                <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
+                            </div>
+                            <div class="card-text">
+                                <button class="btn btn-success" name="button" th:id="${prod.id}">Add to cart</button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:each="supplier : ${suppliers}" th:case="${supplier.getName()}">
+        <div class="container">
+
+            <br>
+            <p th:text="${supplier.getName()}" style="font-weight: bold">Category Title</p>
+
+            <div id="products2" class="row">
+                <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${products}" th:if="${supplier.getName().equals(prod.getSupplier().getName())}">
+                    <div class="card">
+                        <img class="" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt="" />
+                        <div class="card-header">
+                            <h4 class="card-title" th:text="${prod.name}">Product name</h4>
+                            <p class="card-text" th:text="${prod.description}">Product description... </p>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-text">
+                                <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
+                            </div>
+                            <div class="card-text">
+                                <button class="btn btn-success" name="button" th:id="${prod.id}">Add to cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div th:replace="footer.html :: copy"></div>
-
 </body>
 </html>
