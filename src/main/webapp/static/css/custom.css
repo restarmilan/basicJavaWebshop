@@ -60,3 +60,8 @@
 {
     margin: 0 0 11px;
 }
+
+#header-right
+{
+    float: right
+}

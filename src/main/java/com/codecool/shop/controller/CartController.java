@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 @WebServlet(urlPatterns = {"/cart"})
 public class CartController extends HttpServlet {
@@ -31,12 +33,10 @@ public class CartController extends HttpServlet {
         //resp.setCharacterEncoding("UTF-8");
         int id = json.getInt("id");
         cart.addToCart(productDaoMem.find(id));
-        resp.getWriter().print(json);
-
-
-
-
-
+        Map<String,String> jsonData = new HashMap<>();
+        jsonData.put("cartSize",String.valueOf(cart.getCart().size()));
+        JSONObject responseData = new JSONObject(jsonData);
+        resp.getWriter().print(responseData);
     }
 
     @Override

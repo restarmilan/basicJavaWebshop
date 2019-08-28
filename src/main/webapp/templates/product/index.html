@@ -35,6 +35,9 @@
 <body>
 <div class="jumbotron text-center">
     <h1><a href="/" style="text-decoration: none">Codecool Shop</a></h1>
+    <div id="header-right">
+        <button class="btn btn-success" id="cart-button"><a href="/cart"></a></button>
+    </div>
 </div>
 
 <form action="/" method="get">
@@ -49,7 +52,6 @@
     </select>
     <input type="submit" value="Submit" style="margin: 1em; width: 6em; height: 2em">
 </form>
-
 
 <div id ="prod-cat-choose" th:switch="${prodCat}">
     <div th:case="null">
