@@ -8,7 +8,8 @@ import java.util.Map;
 public interface CartDao {
 
     void addToCart(Product product);
-    Map<Product,Integer> getCart();
+    Map<Product,Integer> getCartOfAllProducts();
     void removeFromCart(Product product);
     float getSumOfPrices();
+    int getsumOfAllProducts();
 }

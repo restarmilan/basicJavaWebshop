@@ -42,7 +42,7 @@
         <tr th:each="item:${cart}">
             <td th:text="${item.key.getName()}">Prodname</td>
             <td>
-                <input type="number" name="quantity" min="0" max="500" th:value="${item.value}"> <!-- valuet megkapja majd a szervertől - ha quantity 0, akkor eltávolítja a cartból -->
+                <input type="number" name="quantity" min="0" max="500" th:value="${item.value}">
                 <input type="submit">
             </td>
             <td th:text="${item.key.getPrice()}">ejha</td>

@@ -3,15 +3,13 @@ package com.codecool.shop.dao.implementation;
 import com.codecool.shop.dao.CartDao;
 import com.codecool.shop.model.Product;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class CartDaoMem implements CartDao {
 
     private static CartDaoMem instance = null;
-    Map<Product, Integer> cart = new HashMap<>();
+    Map<Product, Integer> cartOfAllProducts = new HashMap<>();
 
     private CartDaoMem(){}
 
@@ -25,30 +23,39 @@ public class CartDaoMem implements CartDao {
 
     @Override
     public void addToCart(Product product) {
-        if(cart.containsKey(product)){
-            int currentValue = cart.get(product);
-            cart.replace(product, currentValue+1);
+        if(cartOfAllProducts.containsKey(product)){
+            int currentValue = cartOfAllProducts.get(product);
+            cartOfAllProducts.replace(product, currentValue+1);
         }else{
-            cart.put(product, 1);
+            cartOfAllProducts.put(product, 1);
         }
     }
 
     @Override
-    public Map<Product, Integer> getCart() {
+    public Map<Product, Integer> getCartOfAllProducts() {
 
-        return cart;
+        return cartOfAllProducts;
     }
 
     @Override
     public void removeFromCart(Product product) {
-        cart.remove(product);
+        cartOfAllProducts.remove(product);
     }
 
     @Override
     public float getSumOfPrices() {
         float sum = 0;
-        for(Product item:cart.keySet()){
-            sum += item.getDefaultPrice() * cart.get(item);
+        for(Product item: cartOfAllProducts.keySet()){
+            sum += item.getDefaultPrice() * cartOfAllProducts.get(item);
+        }
+        return sum;
+    }
+
+    @Override
+    public int getsumOfAllProducts() {
+        int sum = 0;
+        for (Integer value : cartOfAllProducts.values()) {
+            sum += value;
         }
         return sum;
     }
