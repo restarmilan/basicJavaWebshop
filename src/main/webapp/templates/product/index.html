@@ -20,6 +20,10 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
     integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 
+
+    <script defer src="/static/js/script.js"></script>
+
+
     <!-- Latest compiled and minified CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
@@ -29,7 +33,6 @@
 </head>
 
 <body>
-
 <div class="jumbotron text-center">
     <h1><a href="/" style="text-decoration: none">Codecool Shop</a></h1>
 </div>
@@ -46,6 +49,7 @@
     </select>
     <input type="submit" value="Submit" style="margin: 1em; width: 6em; height: 2em">
 </form>
+
 
 <div id ="prod-cat-choose" th:switch="${prodCat}">
     <div th:case="null">
@@ -69,16 +73,15 @@
                                 <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
                             </div>
                             <div class="card-text">
-                                <a class="btn btn-success" href="#">Add to cart</a>
+                                 <button class="btn btn-success" name="button" th:id="${prod.id}">Add to cart</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
-
     </div>
+
     <div th:each="category : ${productCategories}" th:case="${category.getName()}">
         <div class="container">
 
@@ -98,15 +101,16 @@
                                 <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
                             </div>
                             <div class="card-text">
-                                <a class="btn btn-success" href="#">Add to cart</a>
+                                <button class="btn btn-success" name="button" th:id="${prod.id}">Add to cart</button>
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
+
     <div th:each="supplier : ${suppliers}" th:case="${supplier.getName()}">
         <div class="container">
 
@@ -126,18 +130,16 @@
                                 <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
                             </div>
                             <div class="card-text">
-                                <a class="btn btn-success" href="#">Add to cart</a>
+                                <button class="btn btn-success" name="button" th:id="${prod.id}">Add to cart</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
 
 <div th:replace="footer.html :: copy"></div>
-
 </body>
 </html>
