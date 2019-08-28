@@ -26,6 +26,8 @@ import java.util.List;
 @WebServlet(urlPatterns = {"/"})
 public class ProductController extends HttpServlet {
 
+    private String infoText = "Your shopping cart is empty";
+
     @Override
     protected void doPost (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
         BufferedReader reader = req.getReader();
@@ -53,6 +55,7 @@ public class ProductController extends HttpServlet {
         List<Supplier> suppliers = supplierDao.getAll();
         context.setVariable("productCategories", productCategories);
         context.setVariable("suppliers", suppliers);
+        context.setVariable("infoText", infoText);
         /*
         context.setVariable("category1", productCategoryDataStore.find(1));
         context.setVariable("products1", productDataStore.getBy(productCategoryDataStore.find(1)));
