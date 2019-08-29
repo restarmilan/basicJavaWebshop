@@ -51,11 +51,11 @@
                 <button type="submit" class="btn btn-success btn-sm">Got it</button>
             </td>
             <td th:text="${item.key.getPrice()}"></td>
-            <td th:text="${#numbers.formatDecimal(item.key.getDefaultPrice() * item.value,1,2)} +' '+ ${item.key.getDefaultCurrency()}"></td>
+            <td th:text="${#numbers.formatDecimal(item.key.getDefaultPrice() * item.value,1,2, 'POINT')} +' '+ ${item.key.getDefaultCurrency()}"></td>
         </tr>
         <tr id="thick-text">
             <td colspan="2">Total:</td>
-            <td th:text="${#numbers.formatDecimal(sum, 1, 2)}+' USD'">Sum</td>
+            <td th:text="${#numbers.formatDecimal(sum, 1, 2, 'POINT')}+' USD'">Sum</td>
         </tr>
     </table>
 </form>
