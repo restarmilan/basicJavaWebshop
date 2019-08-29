@@ -65,3 +65,32 @@
 {
     float: right
 }
+
+#checkout-submit
+{
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+.checkout-forms
+{
+    border-radius: 5px;
+    margin-left: 10px;
+
+}
+
+.checkout-fields
+{
+    margin-left: 10px;
+}
+
+#thick-text
+{
+    font-weight: bold;
+}
+
+#continue-button
+{
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
