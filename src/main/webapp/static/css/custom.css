@@ -65,3 +65,13 @@
 {
     float: right
 }
+
+#cart-form  {
+    margin: 1.5em;
+}
+
+#cart-table, th, td {
+    padding: 1em;
+    border: 1px solid black;
+    border-collapse: collapse;
+}

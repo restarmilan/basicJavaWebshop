@@ -29,10 +29,10 @@
     <link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
 </head>
 <body>
-<h1>Shopping cart</h1>
+<h1 style="margin-top: .5em">Shopping cart</h1>
 
-<form method="POST" action="/">
-    <table>
+<form method="POST" action="/" id="cart-form">
+    <table id="cart-table">
         <tr>
             <th>Product name</th>
             <th>Quantity</th>
@@ -46,15 +46,18 @@
                 <input type="submit">
             </td>
             <td th:text="${item.key.getPrice()}">ejha</td>
-            <td th:text="${#numbers.formatDecimal(item.key.getDefaultPrice() * item.value,1,2)} +' '+ ${item.key.getDefaultCurrency()}"></td>
+            <td th:text="${#numbers.formatDecimal(item.key.getDefaultPrice() * item.value,1,2, 'POINT')} +' '+ ${item.key.getDefaultCurrency()}"></td>
         </tr>
         <tr>
-            <td colspan="2">Total: </td>
-            <td th:text="${#numbers.formatDecimal(sum, 1, 2)}">Sum</td>
+            <td colspan="3">Total: </td>
+            <td th:text="${#numbers.formatDecimal(sum, 1, 2, 'POINT')} +' USD'">Sum</td>
         </tr>
     </table>
 </form>
 
+<br>
+<a href="/" style="margin: 1em; font-size: 1.5em;">Back to main page</a>
+<br>
 <br>
 <h3>Checkout</h3>
 
