@@ -35,9 +35,12 @@ public class CartController extends HttpServlet {
         //resp.setContentType("application/json");
         //resp.setCharacterEncoding("UTF-8");
         int id = json.getInt("id");
-        cart.addToCart(productDaoMem.find(id));
+        cart.addToCart(productDaoMem.find(id)); // itt küldi el a cartdaomemnek a prod id-t és teszi bele a hashmapbe
+        System.out.println(cart.getsumOfAllProducts());
         Map<String,String> jsonData = new HashMap<>();
-        jsonData.put("cartSize",String.valueOf(cart.getCart().size()));
+        jsonData.put("cartSize",String.valueOf(cart.getCartOfAllProducts().size()));
+        int sumOfAllProductsInCart = cart.getsumOfAllProducts();
+        jsonData.put("sumOfAllProductsInCart", String.valueOf(sumOfAllProductsInCart));
         JSONObject responseData = new JSONObject(jsonData);
         resp.getWriter().print(responseData);
     }
@@ -48,7 +51,7 @@ public class CartController extends HttpServlet {
         WebContext context = new WebContext(req, resp, req.getServletContext());
         float sum = cart.getSumOfPrices();
         context.setVariable("sum", sum);
-        context.setVariable("cart", cart.getCart());
+        context.setVariable("cart", cart.getCartOfAllProducts());
         engine.process("product/cart.html", context, resp.getWriter());
     }
 }

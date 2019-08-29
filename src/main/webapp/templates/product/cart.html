@@ -48,7 +48,7 @@
             <td>
                 <input type="number" name="quantity" min="0" max="500" th:value="${item.value}">
                 <!-- valuet megkapja majd a szervertől - ha quantity 0, akkor eltávolítja a cartból -->
-                <button type="submit" class="btn btn-success btn-sm">Got it</button>
+                <button type="submit" class="btn btn-success btn-sm">Got it</button>     
             </td>
             <td th:text="${item.key.getPrice()}"></td>
             <td th:text="${#numbers.formatDecimal(item.key.getDefaultPrice() * item.value,1,2, 'POINT')} +' '+ ${item.key.getDefaultCurrency()}"></td>
