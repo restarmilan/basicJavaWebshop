@@ -31,7 +31,7 @@
     <link rel="stylesheet" type="text/css" href="/static/css/custom.css"/>
 </head>
 <body>
-<h3>Checkout</h3>
+<h3 id="checkout-head">Checkout</h3>
 <form>
 
     <label class="checkout-fields" for="name">Name</label><br>
@@ -49,5 +49,20 @@
     <input class="checkout-forms" type="text" id="shipping-address" name="shipping-address"
            placeholder="country, city, zipcode, address" size="75"><br><br>
 </form>
+<br>
+<p id="ad">CodeCoolShop now offers free shipping worldwide!!!</p>
+<p id="select">Select your preferred payment option</p>
+<div id="cards"><img
+        src="https://www.merchantequip.com/images/logos/visa-mc-amex-discover-paypal-sm.gif" width="254" height="30"
+        alt="Merchant Equipment Store Credit Card Logos"/>
+</div>
+<form>
+    <br>
+    <div>
+        <a id="back-to-cart-button" class="btn btn-success btn-sm" href="/cart">Back to cart</a>
+        <a id="payment-submit" class="btn btn-success btn-sm" href="/cart">Let's go & pay for your goods!</a>
+    </div>
+</form>
+
 </body>
 </html>
