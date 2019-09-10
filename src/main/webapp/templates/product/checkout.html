@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8"/>
     <meta name="author" content="Codecool"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 
-    <title>Shopping cart</title>
+    <title>Checkout page</title>
 
     <!-- Bootstrap components -->
     <!-- Latest compiled and minified Jquery -->
@@ -31,41 +31,23 @@
     <link rel="stylesheet" type="text/css" href="/static/css/custom.css"/>
 </head>
 <body>
-
-<h1>Shopping cart</h1>
-
-
-<form method="POST" action="/">
-    <table class="table">
-        <tr>
-            <th>Product name</th>
-            <th>Quantity</th>
-            <th>Unit price</th>
-            <th>Subtotal</th>
-        </tr>
-        <tr th:each="item:${cart}">
-            <td th:text="${item.key.getName()}">Prodname</td>
-            <td>
-                <input type="number" name="quantity" min="0" max="500" th:value="${item.value}">
-                <!-- valuet megkapja majd a szervertől - ha quantity 0, akkor eltávolítja a cartból -->
-                <button type="submit" class="btn btn-success btn-sm">Got it</button>     
-            </td>
-            <td th:text="${item.key.getPrice()}"></td>
-            <td th:text="${#numbers.formatDecimal(item.key.getDefaultPrice() * item.value,1,2, 'POINT')} +' '+ ${item.key.getDefaultCurrency()}"></td>
-        </tr>
-        <tr id="thick-text">
-            <td colspan="2">Total:</td>
-            <td th:text="${#numbers.formatDecimal(sum, 1, 2, 'POINT')}+' USD'">Sum</td>
-        </tr>
-    </table>
-</form>
-<br>
+<h3>Checkout</h3>
 <form>
-    <div>
-        <a id="checkout-submit" class="btn btn-success btn-sm" href="/checkout">Checkout</a>
-        <a id="continue-button" class="btn btn-success btn-sm" href="/">Continue shopping</a>
-    </div>
-</form>
 
+    <label class="checkout-fields" for="name">Name</label><br>
+    <input class="checkout-forms" type="text" id="name" name="name" placeholder="name" size="75"><br><br>
+    <label class="checkout-fields" for="email">E-mail</label><br>
+    <input class="checkout-forms" type="email" id="email" name="email" placeholder="youremail@email.com"
+           size="75"><br><br>
+    <label class="checkout-fields" for="phone-number">Phone number</label><br>
+    <input class="checkout-forms" type="text" id="phone-number" name="phone" placeholder="phone number"
+           size="75"><br><br>
+    <label class="checkout-fields" for="billing-address">Billing address</label><br>
+    <input class="checkout-forms" type="text" id="billing-address" name="billing-address"
+           placeholder="country, city, zipcode, address" size="75"><br><br>
+    <label class="checkout-fields" for="shipping-address">Shipping address</label><br>
+    <input class="checkout-forms" type="text" id="shipping-address" name="shipping-address"
+           placeholder="country, city, zipcode, address" size="75"><br><br>
+</form>
 </body>
 </html>
