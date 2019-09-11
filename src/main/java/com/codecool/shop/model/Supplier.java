@@ -11,6 +11,10 @@ public class Supplier extends BaseModel {
         this.products = new ArrayList<>();
     }
 
+    public Supplier(int databaseId, String name, String description) {
+        super(databaseId, name, description);
+    }
+
     public void setProducts(ArrayList<Product> products) {
         this.products = products;
     }
@@ -28,6 +32,16 @@ public class Supplier extends BaseModel {
                         "name: %2$s, " +
                         "description: %3$s",
                 this.id,
+                this.name,
+                this.description
+        );
+    }
+
+    public String stringify() {
+        return String.format("id: %1$d, " +
+                        "name: %2$s, " +
+                        "description: %3$s",
+                databaseId,
                 this.name,
                 this.description
         );

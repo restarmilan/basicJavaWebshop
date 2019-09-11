@@ -8,12 +8,12 @@ import java.util.List;
 
 public interface ProductCategoryDaoJdbc {
 
-    String add(Connection connection, String name, String department, String description);
+    void add(String name, String department, String description);
 
-    ProductCategory find(Connection connection, int id);
+    ProductCategory find(int id);
 
-    String remove(Connection connection, int id);
+    void remove(int id);
 
-    List<ProductCategory> getAll(Connection connection);
+    List<ProductCategory> getAll();
 
 }

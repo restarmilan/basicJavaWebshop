@@ -8,7 +8,26 @@ public class Product extends BaseModel {
     private Currency defaultCurrency;
     private ProductCategory productCategory;
     private Supplier supplier;
+    private String currencyString;
+    private int productCategoryId;
+    private int supplierId;
 
+
+    public Product(String name, float defaultPrice, String currencyString, String description, int prodCatId, int supplierId) {
+        super(name, description);
+        this.defaultPrice = defaultPrice;
+        this.currencyString = currencyString;
+        this.productCategoryId = prodCatId;
+        this.supplierId = supplierId;
+    }
+
+    public Product(int databaseId, String name, float defaultPrice, String currencyString, String description, int prodCatId, int supplierId) {
+        super(databaseId, name, description);
+        this.defaultPrice = defaultPrice;
+        this.currencyString = currencyString;
+        this.productCategoryId = prodCatId;
+        this.supplierId = supplierId;
+    }
 
     public Product(String name, float defaultPrice, String currencyString, String description, ProductCategory productCategory, Supplier supplier) {
         super(name, description);
@@ -74,5 +93,20 @@ public class Product extends BaseModel {
                 this.defaultCurrency.toString(),
                 this.productCategory.getName(),
                 this.supplier.getName());
+    }
+
+    public String stringify() {
+        return String.format("id: %1$d, " +
+                        "name: %2$s, " +
+                        "defaultPrice: %3$f, " +
+                        "defaultCurrency: %4$s, " +
+                        "productCategory: %5$s, " +
+                        "supplier: %6$s",
+                databaseId,
+                this.name,
+                this.defaultPrice,
+                this.currencyString,
+                this.productCategoryId,
+                this.supplierId);
     }
 }
