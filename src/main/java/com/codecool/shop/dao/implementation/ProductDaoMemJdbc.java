@@ -1,10 +1,8 @@
 package com.codecool.shop.dao.implementation;
 
 import com.codecool.shop.controller.DatabaseController;
-import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.ProductDaoJdbc;
 import com.codecool.shop.model.Product;
-import com.codecool.shop.model.ProductCategory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,17 +14,12 @@ import java.util.List;
 
 public class ProductDaoMemJdbc implements ProductDaoJdbc {
 
-    DatabaseController controller = DatabaseController.getInstance();
+    private DatabaseController controller = new DatabaseController();
 
-    private static ProductDaoMemJdbc instance = null;
+    public ProductDaoMemJdbc () {}
 
-    private ProductDaoMemJdbc() {}
-
-    public static ProductDaoMemJdbc getInstance() {
-        if (instance == null) {
-            instance = new ProductDaoMemJdbc();
-        }
-        return instance;
+    public ProductDaoMemJdbc(String database, String user, String password) {
+        this.controller = new DatabaseController(database, user, password);
     }
 
     public void add(String name, float defaultPrice, String defaultCurrency, String description, int productCategoryId, int supplierId) {

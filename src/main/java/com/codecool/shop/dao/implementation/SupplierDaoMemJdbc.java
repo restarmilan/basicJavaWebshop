@@ -13,17 +13,12 @@ import java.util.List;
 
 public class SupplierDaoMemJdbc implements SupplierDaoJdbc {
 
-    DatabaseController controller = DatabaseController.getInstance();
+    DatabaseController controller = new DatabaseController();
 
-    private static SupplierDaoMemJdbc instance = null;
+    public SupplierDaoMemJdbc() {}
 
-    private SupplierDaoMemJdbc() {}
-
-    public static SupplierDaoMemJdbc getInstance() {
-        if (instance == null) {
-            instance = new SupplierDaoMemJdbc();
-        }
-        return instance;
+    public SupplierDaoMemJdbc(String database, String user, String password) {
+        controller = new DatabaseController(database, user, password);
     }
 
     public void add(String name, String description) {

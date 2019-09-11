@@ -22,21 +22,20 @@ import java.util.Map;
 @WebServlet(urlPatterns = {"/cart"})
 public class CartController extends HttpServlet {
 
-    CartDaoMem cart = CartDaoMem.getInstance();
+    CartDaoMem cart;
     ProductDaoMem productDaoMem = ProductDaoMem.getInstance();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        cart = (CartDaoMem) req.getSession().getAttribute("cart");
         BufferedReader reader = req.getReader();
         JSONTokener tokener = new JSONTokener(reader);
         JSONObject json = new JSONObject(tokener);
-        System.out.println("cart" + json.get("id"));
         //String jsonResponse = new Gson().toJson(json);
         //resp.setContentType("application/json");
         //resp.setCharacterEncoding("UTF-8");
         int id = json.getInt("id");
         cart.addToCart(productDaoMem.find(id)); // itt küldi el a cartdaomemnek a prod id-t és teszi bele a hashmapbe
-        System.out.println(cart.getsumOfAllProducts());
         Map<String,String> jsonData = new HashMap<>();
         jsonData.put("cartSize",String.valueOf(cart.getCartOfAllProducts().size()));
         int sumOfAllProductsInCart = cart.getsumOfAllProducts();
@@ -47,6 +46,7 @@ public class CartController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        cart = (CartDaoMem) req.getSession().getAttribute("cart");
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
         float sum = cart.getSumOfPrices();
