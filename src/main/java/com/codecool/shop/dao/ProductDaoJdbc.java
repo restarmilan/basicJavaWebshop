@@ -1,10 +1,6 @@
 package com.codecool.shop.dao;
 
 import com.codecool.shop.model.Product;
-import com.codecool.shop.model.Supplier;
-
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.Currency;
 import java.util.List;
 

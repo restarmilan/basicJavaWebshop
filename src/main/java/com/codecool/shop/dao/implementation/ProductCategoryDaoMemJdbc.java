@@ -3,7 +3,6 @@ package com.codecool.shop.dao.implementation;
 import com.codecool.shop.controller.DatabaseController;
 import com.codecool.shop.dao.ProductCategoryDaoJdbc;
 import com.codecool.shop.model.ProductCategory;
-import com.codecool.shop.model.Supplier;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,17 +13,12 @@ import java.util.List;
 
 public class ProductCategoryDaoMemJdbc implements ProductCategoryDaoJdbc {
 
-    DatabaseController controller = DatabaseController.getInstance();
+    DatabaseController controller = new DatabaseController();
 
-    private static ProductCategoryDaoMemJdbc instance = null;
+    public ProductCategoryDaoMemJdbc() {}
 
-    private ProductCategoryDaoMemJdbc() {}
-
-    public static ProductCategoryDaoMemJdbc getInstance() {
-        if (instance == null) {
-            instance = new ProductCategoryDaoMemJdbc();
-        }
-        return instance;
+    public ProductCategoryDaoMemJdbc(String database, String user, String password) {
+        controller = new DatabaseController(database, user, password);
     }
 
     public void add(String name, String department, String description) {
