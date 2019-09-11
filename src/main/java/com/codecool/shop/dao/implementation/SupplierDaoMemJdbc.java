@@ -1,5 +1,6 @@
 package com.codecool.shop.dao.implementation;
 
+import com.codecool.shop.controller.DatabaseController;
 import com.codecool.shop.dao.SupplierDaoJdbc;
 import com.codecool.shop.model.Supplier;
 
@@ -12,6 +13,8 @@ import java.util.List;
 
 public class SupplierDaoMemJdbc implements SupplierDaoJdbc {
 
+    DatabaseController controller = DatabaseController.getInstance();
+
     private static SupplierDaoMemJdbc instance = null;
 
     private SupplierDaoMemJdbc() {}
@@ -23,51 +26,51 @@ public class SupplierDaoMemJdbc implements SupplierDaoJdbc {
         return instance;
     }
 
-    public String add(Connection connection, String name, String description) {
+    public void add(String name, String description) {
+        Connection connection = controller.getConnection();
         String query = "INSERT INTO Suppliers (name, description) VALUES (?, ?);";
         PreparedStatement ps = null;
         try {
             ps = connection.prepareStatement(query);
             ps.setString(1, name);
             ps.setString(2, description);
-            return query;
+            ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             getFinallyClause(ps, connection);
         }
-        return null;
     }
 
-    public String remove(Connection connection, int supplierId) {
+    public void remove(int supplierId) {
+        Connection connection = controller.getConnection();
         String query = "DELETE FROM Suppliers WHERE id = ?;";
-        /*
-        "DELETE * FROM Products WHERE supplier_id = ?"; az összes hozzá tartozó productot is kitöröljük
-         */
+        String supplementQuery = "DELETE FROM Product WHERE supplier_id = ?";
+        PreparedStatement supplementPs = null;
         PreparedStatement ps = null;
         try {
             ps = connection.prepareStatement(query);
             ps.setInt(1, supplierId);
-            return query;
+            supplementPs = connection.prepareStatement(supplementQuery);
+            supplementPs.setInt(1, supplierId);
+            ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             getFinallyClause(ps, connection);
         }
-        return null;
-
     }
 
-    public Supplier find(Connection connection, int id) {
-        String query = "SELECT * FROM Suppliers WHERE ID = ?;";
+    public Supplier find(int id) { // null-t ad vissza, de nem tudom, miért. debugger nem segít.
+        Connection connection = controller.getConnection();
+        String query = "SELECT id, name, description FROM suppliers WHERE id = ?;";
         PreparedStatement ps = null;
         try {
             ps = connection.prepareStatement(query);
             ps.setInt(1, id);
             ResultSet resultSet = ps.executeQuery();
-            if (resultSet.next()) { // ide kell az ID is, ezért a Supplier class-nál át kell írni a constructort?
-                // csak akkor hozok létre új objectet ebből, ha vmiért használnom kell, pl. itt és meg is adom az id-t az adatbázisból
-                Supplier supplier = new Supplier(resultSet.getString("name"), resultSet.getString("description"));
+            if (resultSet.next()) {
+                Supplier supplier = new Supplier(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("description"));
                 return supplier;
             }
         } catch (SQLException e) {
@@ -79,15 +82,16 @@ public class SupplierDaoMemJdbc implements SupplierDaoJdbc {
         return null;
     }
 
-    public List<Supplier> getAll(Connection connection) {
+    public List<Supplier> getAll() {
+        Connection connection = controller.getConnection();
         String query = "SELECT * FROM Suppliers;";
         PreparedStatement ps = null;
         List<Supplier> resultList = new ArrayList<>();
         try {
             ps = connection.prepareStatement(query);
-            ResultSet resultSet = ps.executeQuery(query);
-            while (resultSet.next()){ // ide is kell majd az id!!!
-                Supplier supplier = new Supplier(resultSet.getString("name"),
+            ResultSet resultSet = ps.executeQuery();
+            while (resultSet.next()){
+                Supplier supplier = new Supplier(resultSet.getInt("id"), resultSet.getString("name"),
                         resultSet.getString("description"));
                 resultList.add(supplier);
             }

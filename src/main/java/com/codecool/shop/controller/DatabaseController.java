@@ -1,18 +1,19 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.dao.ProductCategoryDao;
+import com.codecool.shop.dao.ProductCategoryDaoJdbc;
 import com.codecool.shop.dao.ProductDao;
-import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
-import com.codecool.shop.dao.implementation.ProductDaoMem;
+import com.codecool.shop.dao.SupplierDaoJdbc;
+import com.codecool.shop.dao.implementation.*;
+import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.lang.*;
+import java.util.Arrays;
 import java.util.List;
+
 
 
 public class DatabaseController {
@@ -33,21 +34,24 @@ public class DatabaseController {
     private static final String DB_PASSWORD = System.getenv("DB_PASSWORD");
 
 
-    private Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(
-                DATABASE,
-                DB_USER,
-                DB_PASSWORD);
-    }
-
-    private void executeQuery(String query) {
-        try (Connection connection = getConnection();
-             Statement statement =connection.createStatement();
-        ){
-            statement.execute(query);
-
+    public Connection getConnection() {
+        try {
+            return DriverManager.getConnection(
+                    DATABASE,
+                    DB_USER,
+                    DB_PASSWORD);
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return null;
     }
+
+    public static void main(String[] args) {
+        ProductCategoryDaoJdbc pc = ProductCategoryDaoMemJdbc.getInstance();
+        List<ProductCategory> pr = pc.getAll();
+        for (ProductCategory c : pr) {
+            System.out.println(c.stringify());
+        }
+   }
+
 }

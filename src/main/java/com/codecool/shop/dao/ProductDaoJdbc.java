@@ -1,18 +1,21 @@
 package com.codecool.shop.dao;
 
+import com.codecool.shop.model.Product;
 import com.codecool.shop.model.Supplier;
 
 import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.Currency;
 import java.util.List;
 
 public interface ProductDaoJdbc {
 
-    String add(Connection connection, String name, float defaultPrice, String defaultCurrency, String description, int productCategoryId, int supplierId);
+    void add(String name, float defaultPrice, String defaultCurrency, String description, int productCategoryId, int supplierId);
 
-    Supplier find(Connection connection, int id);
+    Product find(int id);
 
-    String remove(Connection connection, int id);
+    void remove(int id);
 
-    List<Supplier> getAll(Connection connection);
+    List<Product> getAll();
 
 }
