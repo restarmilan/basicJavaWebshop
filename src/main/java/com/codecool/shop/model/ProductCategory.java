@@ -7,6 +7,11 @@ public class ProductCategory extends BaseModel {
     private String department;
     private List<Product> products;
 
+    public ProductCategory(int databaseId, String name, String department, String description) {
+        super(databaseId, name, description);
+        this.department = department;
+    }
+
     public ProductCategory(String name, String department, String description) {
         super(name);
         this.department = department;
@@ -15,11 +20,6 @@ public class ProductCategory extends BaseModel {
 
     public String getDepartment() {
         return department;
-    }
-
-    @Override
-    public String getName() {
-        return name;
     }
 
     public void setDepartment(String department) {
@@ -45,6 +45,18 @@ public class ProductCategory extends BaseModel {
                         "department: %3$s, " +
                         "description: %4$s",
                 this.id,
+                this.name,
+                this.department,
+                this.description);
+    }
+
+    public String stringify() {
+        return String.format(
+                "id: %1$d," +
+                        "name: %2$s, " +
+                        "department: %3$s, " +
+                        "description: %4$s",
+                databaseId,
                 this.name,
                 this.department,
                 this.description);
