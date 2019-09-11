@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 @WebServlet(urlPatterns = {"/login"})
 public class LoginController extends HttpServlet {
@@ -41,6 +43,9 @@ public class LoginController extends HttpServlet {
         }else{
 
         }
-        resp.sendRedirect("/");
+        Map<String,Boolean> jsonData = new HashMap<>();
+        jsonData.put("ez", true);
+        JSONObject responseData = new JSONObject(jsonData);
+        resp.getWriter().print(responseData);
     }
 }

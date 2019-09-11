@@ -51,6 +51,7 @@ public class ProductController extends HttpServlet {
             session.setAttribute("loginStatus", false);
             session.setAttribute("cart", new CartDaoMem());
         }
+        System.out.println(req.getSession(false).getAttribute("name"));
         ProductDao productDataStore = ProductDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
         SupplierDao supplierDao = SupplierDaoMem.getInstance();

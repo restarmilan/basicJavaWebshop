@@ -7,23 +7,25 @@ loginButton.innerHTML = "Login";
 
 let loginSubmit = document.getElementById("login");
 loginSubmit.addEventListener("click", function () {
-    let name = document.getElementById("username").valueOf();
-    let password = document.getElementById("password").valueOf();
+    let name = document.getElementById("username").value;
+    console.log(name);
+    let password = document.getElementById("password").value;
+    console.log(password);
     let data = {"username": name, "password": password};
-    console.log(data);
     post("/login", data, function (response) {
         console.log(response)
+        $('#login-modal').modal('hide');
     });
 });
 
 let registrationSubmit = document.getElementById("register");
 registrationSubmit.addEventListener("click", function () {
-    let name = document.getElementById("uname").valueOf();
-    let password = document.getElementById("passwd").valueOf();
-    let email = document.getElementById("email").valueOf();
-    let phone = document.getElementById("phone").valueOf();
-    let badress = document.getElementById("badress").valueOf();
-    let sadress = document.getElementById("sadress").valueOf();
+    let name = document.getElementById("uname").value;
+    let password = document.getElementById("passwd").value;
+    let email = document.getElementById("email").value;
+    let phone = document.getElementById("phone").value;
+    let badress = document.getElementById("badress").value;
+    let sadress = document.getElementById("sadress").value;
 
     let data = {
         "username": name,
@@ -47,7 +49,7 @@ buttons.forEach(function (button) {
     button.addEventListener("click", function () {
         let id = button.getAttribute("id");
         let data = {"id": id};
-        let request = new XMLHttpRequest();
+        /*let request = new XMLHttpRequest();
             request.open("POST", "/cart");
             request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
             request.send(JSON.stringify(data)); // elküldi a product id-ját a cartcontrollernek
@@ -56,12 +58,15 @@ buttons.forEach(function (button) {
                 if (request.readyState === 4) {
                     callback(request.response);
                 }
-            }
+            }*/
+        post("/cart", data, function (response) {
+            callback(response)
+        })
         }
     )
 });
 function callback(response) {
-    value = JSON.parse(response).sumOfAllProductsInCart; // miért nem működik get-tel?
+    value = response.sumOfAllProductsInCart; // miért nem működik get-tel?
     cartButton.innerHTML=`Cart (${value})`;
     console.log(response)
 }

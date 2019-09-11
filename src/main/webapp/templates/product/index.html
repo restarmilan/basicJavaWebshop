@@ -30,7 +30,7 @@
 </head>
 <body>
 <div id="header-right">
-    <p>You are logged in as ... </p>
+    <p th:text="'You are logged in as ' + ${session.name}">You are logged in as ... </p>
     <a class="btn btn-outline-secondary" id="reg-button" href="/registration" data-toggle="modal"
        data-target="#registration-modal"></a>
     <a class="btn btn-outline-secondary" id="login-button" href="/login" data-toggle="modal"
@@ -62,7 +62,7 @@
                     <label for="password">Password</label>
                     <input type="password" name="password" id="password" class="form-control">
                     <br>
-                    <button type="submit" value="submit" class="btn btn-primary" id="login">Let's log in</button>
+                    <button type="button" value="submit" class="btn btn-primary" id="login">Let's log in</button>
                 </form>
             </div>
         </div>
@@ -93,7 +93,7 @@
                     <label for="sadress">Shipping adress</label>
                     <input type="text" name="username" id="sadress" class="form-control">
                     <br>
-                    <button type="submit" value="submit" class="btn btn-primary" id="register">Let's register</button>
+                    <button type="button" value="submit" class="btn btn-primary" id="register">Let's register</button>
                 </form>
             </div>
         </div>
