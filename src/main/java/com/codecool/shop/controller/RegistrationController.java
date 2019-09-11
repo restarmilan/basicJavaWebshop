@@ -31,10 +31,6 @@ public class RegistrationController extends HttpServlet {
             responseData.put("registrationStatus", false);
         }
         resp.getWriter().print(responseData);
-
-        HttpSession session = req.getSession(true);
-        session.setAttribute();
-
     }
 
 }
