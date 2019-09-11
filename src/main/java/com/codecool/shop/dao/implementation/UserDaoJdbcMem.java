@@ -11,7 +11,8 @@ import java.sql.SQLException;
 public class UserDaoJdbcMem {
 
     private static UserDaoJdbcMem instance = null;
-    private Connection connection = DatabaseController.getInstance().getConnection();
+    private Connection connection = new DatabaseController().getConnection();
+    //private Connection connection = DatabaseController.getInstance().getConnection();
 
 
     private UserDaoJdbcMem() {
