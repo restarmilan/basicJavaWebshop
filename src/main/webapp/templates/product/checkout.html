@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="author" content="Codecool"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+    <title>Checkout page</title>
+
+    <!-- Bootstrap components -->
+    <!-- Latest compiled and minified Jquery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+    <!--Latest compiled and minified Popper -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+            integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+            crossorigin="anonymous"></script>
+
+
+    <!-- Latest compiled and minified CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <!-- End of Bootstrap components -->
+
+    <link rel="stylesheet" type="text/css" href="/static/css/custom.css"/>
+</head>
+<body>
+<h3 id="checkout-head">Checkout</h3>
+<form>
+
+    <label class="checkout-fields" for="name">Name</label><br>
+    <input class="checkout-forms" type="text" id="name" name="name" placeholder="name" size="75"><br><br>
+    <label class="checkout-fields" for="email">E-mail</label><br>
+    <input class="checkout-forms" type="email" id="email" name="email" placeholder="youremail@email.com"
+           size="75"><br><br>
+    <label class="checkout-fields" for="phone-number">Phone number</label><br>
+    <input class="checkout-forms" type="text" id="phone-number" name="phone" placeholder="phone number"
+           size="75"><br><br>
+    <label class="checkout-fields" for="billing-address">Billing address</label><br>
+    <input class="checkout-forms" type="text" id="billing-address" name="billing-address"
+           placeholder="country, city, zipcode, address" size="75"><br><br>
+    <label class="checkout-fields" for="shipping-address">Shipping address</label><br>
+    <input class="checkout-forms" type="text" id="shipping-address" name="shipping-address"
+           placeholder="country, city, zipcode, address" size="75"><br><br>
+</form>
+<br>
+<p id="ad">CodeCoolShop now offers free shipping worldwide!!!</p>
+<p id="select">Select your preferred payment option</p>
+<div id="cards"><img
+        src="https://www.merchantequip.com/images/logos/visa-mc-amex-discover-paypal-sm.gif" width="254" height="30"
+        alt="Merchant Equipment Store Credit Card Logos"/>
+</div>
+<form>
+    <br>
+    <div>
+        <a id="back-to-cart-button" class="btn btn-success btn-sm" href="/cart">Back to cart</a>
+        <a id="payment-submit" class="btn btn-success btn-sm" href="/cart">Let's go & pay for your goods!</a>
+    </div>
+</form>
+
+</body>
+</html>

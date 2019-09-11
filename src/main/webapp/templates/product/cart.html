@@ -59,32 +59,12 @@
         </tr>
     </table>
 </form>
-
 <br>
-<h3>Checkout</h3>
-
 <form>
-
-    <label class="checkout-fields" for="name">Name</label><br>
-    <input class="checkout-forms" type="text" id="name" name="name" placeholder="name" size="75"><br><br>
-    <label class="checkout-fields" for="email">E-mail</label><br>
-    <input class="checkout-forms" type="email" id="email" name="email" placeholder="youremail@email.com"
-           size="75"><br><br>
-    <label class="checkout-fields" for="phone-number">Phone number</label><br>
-    <input class="checkout-forms" type="text" id="phone-number" name="phone" placeholder="phone number"
-           size="75"><br><br>
-    <label class="checkout-fields" for="billing-address">Billing address</label><br>
-    <input class="checkout-forms" type="text" id="billing-address" name="billing-address"
-           placeholder="country, city, zipcode, address" size="75"><br><br>
-    <label class="checkout-fields" for="shipping-address">Shipping address</label><br>
-    <input class="checkout-forms" type="text" id="shipping-address" name="shipping-address"
-           placeholder="country, city, zipcode, address" size="75"><br><br>
     <div>
-        <input class="btn btn-success btn-sm" id="checkout-submit" type="submit" value="Submit">
+        <a id="checkout-submit" class="btn btn-success btn-sm" href="/checkout">Checkout</a>
         <a id="continue-button" class="btn btn-success btn-sm" href="/">Continue shopping</a>
     </div>
-    <!-- this submit should redirect to the payment page. Idea:
-    <a href="/payment"><input type="submit" value="Submit"></a> - instead of just the submit button -->
 </form>
 
 </body>
