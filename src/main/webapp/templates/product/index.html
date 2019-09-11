@@ -102,7 +102,10 @@
 
 <form action="/" method="get">
     <label for="prod-supp-select" style="font-size: 1.5em; font-weight: bolder; margin-left: 1em">Choose product by category or supplier</label><br>
-    <select id="prod-supp-select" name="prod-or-cat" style="width: 6em; height: 2em; margin-left: 1em; padding: .3em">
+    <select class="btn btn-primary-outline dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false" id="prod-supp-select" name="prod-or-cat"
+            style="width: 10em; height: 3em; margin-left: 1em; padding: .3em; font-size: 1.2em">
+        <option value="Choose by category or supplier">Please choose</option>
         <optgroup label="Product category">
             <option th:value="${category.getName()}" th:text="${category.getName()}" th:each="category : ${productCategories}"></option>
         </optgroup>
@@ -110,7 +113,7 @@
             <option th:each="supp : ${suppliers}" th:value="${supp.getName()}" th:text="${supp.getName()}"></option>
         </optgroup>
     </select>
-    <input type="submit" value="Submit" style="margin: 1em; width: 6em; height: 2em">
+    <input class="btn btn-primary btn-sm" type="submit" value="Submit" style="margin: 1em; width: 6em; height: 2em; font-size: 1.2em;">
 </form>
 
 <div id ="prod-cat-choose" th:switch="${prodCat}">
