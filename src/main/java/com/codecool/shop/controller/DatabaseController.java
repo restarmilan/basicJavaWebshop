@@ -33,11 +33,16 @@ public class DatabaseController {
     private static final String DB_PASSWORD = System.getenv("DB_PASSWORD");
 
 
-    private Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(
-                DATABASE,
-                DB_USER,
-                DB_PASSWORD);
+    public Connection getConnection() {
+        try {
+            return DriverManager.getConnection(
+                    DATABASE,
+                    DB_USER,
+                    DB_PASSWORD);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     private void executeQuery(String query) {
