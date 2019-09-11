@@ -8,17 +8,13 @@ import java.util.Map;
 
 public class CartDaoMem implements CartDao {
 
-    private static CartDaoMem instance = null;
-    Map<Product, Integer> cartOfAllProducts = new HashMap<>();
+    Map<Product, Integer> cartOfAllProducts;
 
-    private CartDaoMem(){}
-
-    public static CartDaoMem getInstance(){
-        if (instance == null){
-            instance = new CartDaoMem();
-        }
-        return instance;
+    public CartDaoMem(){
+        cartOfAllProducts = new HashMap<>();
     }
+
+
 
 
     @Override

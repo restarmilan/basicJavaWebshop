@@ -1,6 +1,7 @@
 package com.codecool.shop.dao.implementation;
 
 import com.codecool.shop.controller.DatabaseController;
+import com.codecool.shop.model.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -60,5 +61,21 @@ public class UserDaoJdbcMem {
         }catch (SQLException e){
             e.printStackTrace();
         }
+    }
+
+    public User getUsernameAndPassword(String username){
+        String query = "SELECT name, password FROM users WHERE name = ?;";
+        User user = null;
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, username);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()){
+                user = new User(resultSet.getString("name"), resultSet.getString("password"));
+            }
+        }catch (SQLException e){
+
+        }
+        return user;
     }
 }
