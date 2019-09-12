@@ -2,6 +2,7 @@ package com.codecool.shop.controller;
 
 
 import com.codecool.shop.dao.implementation.CartDaoMem;
+import org.json.JSONObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 @WebServlet(urlPatterns = {"/logout"})
 public class LogoutController extends HttpServlet {
@@ -22,7 +25,10 @@ public class LogoutController extends HttpServlet {
         session.setAttribute("name", "Guest");
         session.setAttribute("loginStatus", false);
         session.setAttribute("cart", new CartDaoMem());
-        resp.sendRedirect("/");
+        Map<String, Boolean> jsonData = new HashMap<>();
+        jsonData.put("status", true);
+        JSONObject responseData = new JSONObject(jsonData);
+        resp.getWriter().print(responseData);
 
     }
 }

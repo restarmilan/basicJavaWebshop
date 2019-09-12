@@ -30,7 +30,7 @@ public class ProductController extends HttpServlet {
 
     private String infoText = "Your shopping cart is empty";
 
-    @Override
+    /*@Override
     protected void doPost (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
         BufferedReader reader = req.getReader();
         JSONTokener tokener = new JSONTokener(reader);
@@ -41,7 +41,7 @@ public class ProductController extends HttpServlet {
         //resp.getWriter().print(json);
 
 
-    }
+    }*/
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -51,7 +51,6 @@ public class ProductController extends HttpServlet {
             session.setAttribute("loginStatus", false);
             session.setAttribute("cart", new CartDaoMem());
         }
-        System.out.println(req.getSession(false).getAttribute("name"));
         ProductDao productDataStore = ProductDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
         SupplierDao supplierDao = SupplierDaoMem.getInstance();
@@ -64,21 +63,6 @@ public class ProductController extends HttpServlet {
         context.setVariable("productCategories", productCategories);
         context.setVariable("suppliers", suppliers);
         context.setVariable("infoText", infoText);
-        /*
-        context.setVariable("category1", productCategoryDataStore.find(1));
-        context.setVariable("products1", productDataStore.getBy(productCategoryDataStore.find(1)));
-        context.setVariable("category2", productCategoryDataStore.find(2));
-        context.setVariable("products2", productDataStore.getBy(productCategoryDataStore.find(2)));
-        context.setVariable("category3", productCategoryDataStore.find(3));
-        context.setVariable("products3", productDataStore.getBy(productCategoryDataStore.find(3)));
-
-        context.setVariable("Amazon", productDataStore.getBy(supplierDao.find(1)));
-        context.setVariable("Lenovo", productDataStore.getBy(supplierDao.find(2)));
-        context.setVariable("Samsung", productDataStore.getBy(supplierDao.find(3)));
-        context.setVariable("Toshiba", productDataStore.getBy(supplierDao.find(4)));
-        context.setVariable("Logitech", productDataStore.getBy(supplierDao.find(5)));
-        context.setVariable("Microsoft", productDataStore.getBy(supplierDao.find(6)));
-        */
 
         context.setVariable("categories", productCategoryDataStore.getAll());
         context.setVariable("products", productDataStore.getAll());
@@ -91,8 +75,3 @@ public class ProductController extends HttpServlet {
     }
 
 }
-// // Alternative setting of the template context
-// Map<String, Object> params = new HashMap<>();
-// params.put("category", productCategoryDataStore.find(1));
-// params.put("products", productDataStore.getBy(productCategoryDataStore.find(1)));
-// context.setVariables(params);
