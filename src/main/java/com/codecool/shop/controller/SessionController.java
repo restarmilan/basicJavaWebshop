@@ -23,7 +23,7 @@ public class SessionController extends HttpServlet {
         HttpSession session = req.getSession(false);
         CartDaoMem cart = (CartDaoMem) session.getAttribute("cart");
         sessionData.put("username", session.getAttribute("name"));
-        sessionData.put("cartSize", cart.getCartOfAllProducts().size());
+        sessionData.put("cartSize", cart.getsumOfAllProducts());
         sessionData.put("loginStatus", session.getAttribute("loginStatus"));
         JSONObject responseData = new JSONObject(sessionData);
         System.out.println(responseData);
