@@ -44,7 +44,7 @@ public class SupplierDaoMem implements SupplierDao {
         return data;
     }
 
-    public int getDataSize() {
+    public int getNumberOfSuppliers() {
         return this.data.size();
     }
 }
