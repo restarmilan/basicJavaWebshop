@@ -3,9 +3,6 @@ package com.codecool.shop.dao.implementation;
 import com.codecool.shop.model.ProductCategory;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
@@ -35,14 +32,4 @@ class ProductCategoryDaoMemTest {
         productCategoryDaoMem.remove(2);
         assertNull(productCategoryDaoMem.find(2));
     }
-
-    @Test
-    public void testIsGiveBackAllCategories() {
-        List<ProductCategory> testList = new ArrayList<>();
-        //ProductCategory testCategory = new ProductCategory("testname", "testdepartment", "category only for testing");
-        testList.add(productCategoryDaoMem.find(1));
-        testList.add(productCategoryDaoMem.find(2));
-        assertEquals(testList, productCategoryDaoMem.getAll());
-    }
-
 }
