@@ -18,7 +18,7 @@ class ProductDaoMemTest {
     private SupplierDaoMem supplierDaoMem = SupplierDaoMem.getInstance();
 
     @Test
-    public void testIsAddingNewProduct() {
+    public void testAddNewProduct() {
         Product product = createProduct();
         productDaoMem.add(product);
         assertEquals(product, productDaoMem.find(1));
@@ -32,7 +32,7 @@ class ProductDaoMemTest {
     }
 
     @Test
-    public void testIsFindingProductByGivenID() {
+    public void testFindProductByGivenID() {
         Product product = createProduct();
         productDaoMem.add(product);
         assertEquals("testProduct", productDaoMem.find(1).getName());
@@ -40,7 +40,7 @@ class ProductDaoMemTest {
     }
 
     @Test
-    public void testIsRemovingByGivenId() {
+    public void testRemoveByGivenId() {
         Product product = createProduct();
         productDaoMem.add(product);
         productDaoMem.remove(1);
@@ -49,7 +49,7 @@ class ProductDaoMemTest {
     }
 
     @Test
-    public void testIsFindingProductBySupplier() {
+    public void testFindProductBySupplier() {
         Product product = createProduct();
         productDaoMem.add(product);
         List<Product> testList = new ArrayList<>();
@@ -58,7 +58,7 @@ class ProductDaoMemTest {
     }
 
     @Test
-    public void testIsFindingProductByCategory() {
+    public void testFindProductByCategory() {
         Product product = createProduct();
         productDaoMem.add(product);
         List<Product> testList = new ArrayList<>();
