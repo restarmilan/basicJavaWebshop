@@ -24,27 +24,29 @@ public class LoginController extends HttpServlet {
 
     @Override
     protected void doPost (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession previousSession = req.getSession(false);
         BufferedReader reader = req.getReader();
         JSONTokener tokener = new JSONTokener(reader);
         JSONObject json = new JSONObject(tokener);
         String username = json.getString("username");
         String password = json.getString("password");
         User user = UserDaoJdbcMem.getInstance().getUsernameAndPassword(username);
+        Map<String,Boolean> jsonData = new HashMap<>();
         if(user != null){
             if(user.getPassword().equals(password)){
                 HttpSession session = req.getSession(true);
                 session.setAttribute("name", username);
                 session.setAttribute("loginStatus", true);
-                session.setAttribute("cart", new CartDaoMem());
+                session.setAttribute("cart", previousSession.getAttribute("cart"));
+                jsonData.put("status", true);
             }else{
-
+                jsonData.put("status", false);
             }
 
         }else{
-
+            jsonData.put("status", false);
         }
-        Map<String,Boolean> jsonData = new HashMap<>();
-        jsonData.put("ez", true);
+
         JSONObject responseData = new JSONObject(jsonData);
         resp.getWriter().print(responseData);
     }

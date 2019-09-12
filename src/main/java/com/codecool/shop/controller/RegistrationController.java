@@ -32,11 +32,12 @@ public class RegistrationController extends HttpServlet {
         Map<String, Boolean> responseData = new HashMap<>();
         if(!UserDaoJdbcMem.getInstance().checkIfUSerExist(username)){
             UserDaoJdbcMem.getInstance().addUser(username, password, eMail, phoneNumber, billingAddress, shippingAddress);
-            responseData.put("registrationStatus", true);
+            responseData.put("status", true);
         }else{
-            responseData.put("registrationStatus", false);
+            responseData.put("status", false);
         }
-        resp.getWriter().print(responseData);
+        JSONObject jsonData = new JSONObject(responseData);
+        resp.getWriter().print(jsonData);
     }
 
 }

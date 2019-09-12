@@ -30,11 +30,9 @@
 </head>
 <body>
 <div id="header-right">
-    <p th:text="'You are logged in as ' + ${session.name}">You are logged in as ... </p>
-    <a class="btn btn-outline-secondary" id="reg-button" href="/registration" data-toggle="modal"
-       data-target="#registration-modal"></a>
-    <a class="btn btn-outline-secondary" id="login-button" href="/login" data-toggle="modal"
-       data-target="#login-modal"></a>
+    <p id="welcome-message" >You are not logged in</p>
+    <burron class="btn btn-outline-secondary" id="reg-button"></burron>
+    <button class="btn btn-outline-secondary" id="login-button"></button>
     <a class="btn btn-outline-secondary" id="cart-button" href="/cart"></a>
 </div>
 <div class="jumbotron text-center">
@@ -56,6 +54,7 @@
                 </button>
             </div>
             <div class="modal-body">
+                <p id="loginStatus"></p>
                 <form action="/login" method="post">
                     <label for="username">Username</label>
                     <input type="text" name="username" id="username" class="form-control">
@@ -79,6 +78,7 @@
                 </button>
             </div>
             <div class="modal-body">
+                <p id="registrationStatus"></p>
                 <form action="/registration" method="post">
                     <label for="uname">Username</label>
                     <input type="text" name="username" id="uname" class="form-control">
@@ -89,7 +89,7 @@
                     <label for="phone">Phone number</label>
                     <input type="text" name="phone" id="phone" class="form-control">
                     <label for="badress">Billing Address</label>
-                    <input type="password" name="badress" id="badress" class="form-control">
+                    <input type="text" name="badress" id="badress" class="form-control">
                     <label for="sadress">Shipping adress</label>
                     <input type="text" name="username" id="sadress" class="form-control">
                     <br>
