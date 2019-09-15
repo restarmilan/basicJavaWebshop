@@ -17,31 +17,86 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ProductDaoJdbcTest {
 
-    ProductDaoJdbc productDaoJdbc;
+    ProductDaoJdbc productDaoJdbc = new ProductDaoMemJdbc("jdbc:postgresql://localhost:5432/mock_db_codecoolshop", "zsana", "mandolin");
 
     @BeforeEach
-    void addProductsToProductTable() {
-        productDaoJdbc = new ProductDaoMemJdbc("jdbc:postgresql://localhost:5432/mock_db_codecoolshop", "zsana", "mandolin");
-        productDaoJdbc.add("Mock product 1", 10, "USD", "Mock description 1", 1, 1);
-        productDaoJdbc.add("Mock product 2", 20, "USD", "Mock description 2", 2, 2);
-        productDaoJdbc.add("Mock product 3", 30, "USD", "Mock description 3", 3, 3);
-        productDaoJdbc.add("Mock product 4", 40, "USD", "Mock description 4", 2, 2);
-        productDaoJdbc.add("Mock product 5", 50, "USD", "Mock description 5", 1, 1);
+    void insertDataToDatabase() {
+        DatabaseController controller = new DatabaseController("jdbc:postgresql://localhost:5432/mock_db_codecoolshop", "zsana", "mandolin");
+        Connection connection = controller.getConnection();
+        PreparedStatement ps, ps2, ps3, ps4, ps5, psS1, psS2, psS3, psP1, psP2, psP3, psP4, psP5;
+        try {
+            ps = connection.prepareStatement("INSERT INTO product(name, default_price, default_currency, description, productcategory_id, supplier_id) " +
+                    "VALUES ('Mock product 1', 10, 'USD', 'Mock description 1', 1, 1)");
+            ps2 = connection.prepareStatement("INSERT INTO product(name, default_price, default_currency, description, productcategory_id, supplier_id) " +
+                    "VALUES ('Mock product 2', 20, 'USD', 'Mock description 2', 2, 2)");
+            ps3 = connection.prepareStatement("INSERT INTO product(name, default_price, default_currency, description, productcategory_id, supplier_id) " +
+                    "VALUES ('Mock product 3', 30, 'USD', 'Mock description 3', 3, 3)");
+            ps4 = connection.prepareStatement("INSERT INTO product(name, default_price, default_currency, description, productcategory_id, supplier_id) " +
+                    "VALUES ('Mock product 4', 40, 'USD', 'Mock description 4', 2, 2)");
+            ps5 = connection.prepareStatement("INSERT INTO product(name, default_price, default_currency, description, productcategory_id, supplier_id) " +
+                    "VALUES ('Mock product 5', 50, 'USD', 'Mock description 5', 1, 1)");
+            psS1 = connection.prepareStatement("INSERT INTO suppliers(name, description) VALUES ('Mock1 supplier', 'Mock description 1')");
+            psS2 = connection.prepareStatement("INSERT INTO suppliers(name, description) VALUES ('Mock2 supplier', 'Mock description 2')");
+            psS3 = connection.prepareStatement("INSERT INTO suppliers(name, description) VALUES ('Mock3 supplier', 'Mock description 3')");
+            psP1 = connection.prepareStatement("INSERT INTO productcategory(name, department, description) " +
+                    "VALUES ('Mock productcategory 1', 'Hardware', 'Mock description 1')");
+            psP2 = connection.prepareStatement("INSERT INTO productcategory(name, department, description) " +
+                    "VALUES ('Mock productcategory 2', 'Hardware', 'Mock description 2')");
+            psP3 = connection.prepareStatement("INSERT INTO productcategory(name, department, description) " +
+                    "VALUES ('Mock productcategory 3', 'Hardware', 'Mock description 3')");
+            psP4 = connection.prepareStatement("INSERT INTO productcategory(name, department, description) " +
+                    "VALUES ('Mock productcategory 4', 'Hardware', 'Mock description 4')");
+            psP5 = connection.prepareStatement("INSERT INTO productcategory(name, department, description) " +
+                    "VALUES ('Mock productcategory 5', 'Hardware', 'Mock description 5')");
+            psS1.executeUpdate();
+            psS2.executeUpdate();
+            psS3.executeUpdate();
+            psP1.executeUpdate();
+            psP2.executeUpdate();
+            psP3.executeUpdate();
+            psP4.executeUpdate();
+            psP5.executeUpdate();
+            ps.executeUpdate();
+            ps2.executeUpdate();
+            ps3.executeUpdate();
+            ps4.executeUpdate();
+            ps5.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @AfterEach
-    void truncateTable() {
+    void truncateAllTables() {
         DatabaseController controller = new DatabaseController("jdbc:postgresql://localhost:5432/mock_db_codecoolshop", "zsana", "mandolin");
         Connection connection = controller.getConnection();
-        String query = "TRUNCATE TABLE product;";
+        String query = "TRUNCATE TABLE product CASCADE;";
         String query2 = "ALTER SEQUENCE product_id_seq RESTART WITH 1;";
-        PreparedStatement ps;
-        PreparedStatement ps2;
+        String query3 = "TRUNCATE TABLE suppliers CASCADE;";
+        String query4 = "ALTER SEQUENCE suppliers_id_seq RESTART WITH 1;";
+        String query5 = "TRUNCATE TABLE productcategory CASCADE;";
+        String query6 = "ALTER SEQUENCE productcategory_id_seq RESTART WITH 1;";
+        PreparedStatement ps, ps2, ps3, ps4, ps5, ps6;
         try {
             ps = connection.prepareStatement(query);
             ps2 = connection.prepareStatement(query2);
+            ps3 = connection.prepareStatement(query3);
+            ps4 = connection.prepareStatement(query4);
+            ps5 = connection.prepareStatement(query5);
+            ps6 = connection.prepareStatement(query6);
             ps.executeUpdate();
             ps2.executeUpdate();
+            ps3.executeUpdate();
+            ps4.executeUpdate();
+            ps5.executeUpdate();
+            ps6.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -79,15 +134,14 @@ class ProductDaoJdbcTest {
 
     @Test
     void Should_Return_All_Products_From_Database() {
-        Product testProduct1 = new Product(1, "Mock product 1", 10, "USD", "Mock description 1", 1, 1);
-        Product testProduct2 = new Product(2, "Mock product 2", 20, "USD", "Mock description 2", 2, 2);
-        Product testProduct3 = new Product(3, "Mock product 3", 30, "USD", "Mock description 3", 3, 3);
-        Product testProduct4 = new Product(4, "Mock product 4", 40, "USD", "Mock description 4", 2, 2);
-        Product testProduct5 = new Product(5, "Mock product 5", 50, "USD", "Mock description 5", 1, 1);
-        assertEquals(testProduct1.toString(), productDaoJdbc.find(1).toString());
-        assertEquals(testProduct2.toString(), productDaoJdbc.find(2).toString());
-        assertEquals(testProduct3.toString(), productDaoJdbc.find(3).toString());
-        assertEquals(testProduct4.toString(), productDaoJdbc.find(4).toString());
-        assertEquals(testProduct5.toString(), productDaoJdbc.find(5).toString());
+        List<Product> testList = new ArrayList<>();
+        testList.add(new Product(1, "Mock product 1", 10, "USD", "Mock description 1", 1, 1));
+        testList.add(new Product(2, "Mock product 2", 20, "USD", "Mock description 2", 2, 2));
+        testList.add(new Product(3, "Mock product 3", 30, "USD", "Mock description 3", 3, 3));
+        testList.add(new Product(4, "Mock product 4", 40, "USD", "Mock description 4", 2, 2));
+        testList.add(new Product(5, "Mock product 5", 50, "USD", "Mock description 5", 1, 1));
+        String testListString = testList.stream().map(product -> product.toString()).reduce(", ", String::concat);
+        String mockListString = productDaoJdbc.getAll().stream().map(product -> product.toString()).reduce(", ", String::concat);
+        assertEquals(testListString, mockListString);
     }
 }
