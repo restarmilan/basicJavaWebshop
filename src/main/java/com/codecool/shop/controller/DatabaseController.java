@@ -1,16 +1,7 @@
 package com.codecool.shop.controller;
 
-import com.codecool.shop.dao.ProductCategoryDaoJdbc;
-import com.codecool.shop.dao.ProductDaoJdbc;
-import com.codecool.shop.dao.SupplierDaoJdbc;
-import com.codecool.shop.dao.implementation.*;
-import com.codecool.shop.model.Product;
-import com.codecool.shop.model.ProductCategory;
-import com.codecool.shop.model.Supplier;
-
 import java.sql.*;
 import java.lang.*;
-import java.util.List;
 
 public class DatabaseController {
 

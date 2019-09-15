@@ -79,6 +79,7 @@ public class Product extends BaseModel {
         this.supplier.addProduct(this);
     }
 
+    /*
     @Override
     public String toString() {
         return String.format("id: %1$d, " +
@@ -94,8 +95,9 @@ public class Product extends BaseModel {
                 this.productCategory.getName(),
                 this.supplier.getName());
     }
-
-    public String stringify() {
+    */
+    @Override
+    public String toString() {
         return String.format("id: %1$d, " +
                         "name: %2$s, " +
                         "defaultPrice: %3$f, " +
