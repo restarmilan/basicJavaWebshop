@@ -6,8 +6,10 @@ import java.lang.reflect.Field;
 public class BaseModel {
 
     protected int id;
+    protected int databaseId;
     protected String name;
     protected String description;
+
 
     public BaseModel(String name) {
         this.name = name;
@@ -18,6 +20,11 @@ public class BaseModel {
         this.description = description;
     }
 
+    public BaseModel(int databaseId, String name, String description) {
+        this.databaseId = databaseId;
+        this.name = name;
+        this.description = description;
+    }
 
     public int getId() {
         return id;
