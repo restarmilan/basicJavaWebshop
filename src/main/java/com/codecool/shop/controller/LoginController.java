@@ -1,11 +1,12 @@
 package com.codecool.shop.controller;
 
 
-import com.codecool.shop.dao.implementation.CartDaoMem;
 import com.codecool.shop.dao.implementation.UserDaoJdbcMem;
 import com.codecool.shop.model.User;
 import org.json.JSONObject;
 import org.json.JSONTokener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,6 +21,8 @@ import java.util.Map;
 
 @WebServlet(urlPatterns = {"/login"})
 public class LoginController extends HttpServlet {
+
+    private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
 
     @Override
@@ -36,11 +39,16 @@ public class LoginController extends HttpServlet {
             if(user.getPassword().equals(password)){
                 HttpSession session = req.getSession(true);
                 session.setAttribute("name", username);
+                logger.debug("session username attribute is {}", username);
                 session.setAttribute("loginStatus", true);
                 session.setAttribute("cart", previousSession.getAttribute("cart"));
+                logger.trace("session details {}, {} ", username, previousSession.getAttribute("cart"));
                 jsonData.put("status", true);
+                logger.info("successful login as {}", username);
+                logger.info("session and cart created as {}", session.getAttribute("name"));
             }else{
                 jsonData.put("status", false);
+                logger.warn("unsuccessful login because of wrong password");
             }
 
         }else{
